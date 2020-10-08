@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
 
-import AppError from '@shared/errors/AppError';
 import authConfig from '@config/auth';
+import AppError from '@shared/errors/AppError';
 
 interface ITokenPayload {
   iat: number;
@@ -10,25 +10,30 @@ interface ITokenPayload {
   sub: string;
 }
 
-export default function ensureAuth(
-  request: Request,
-  response: Response,
-  next: NextFunction,
-): void {
-  const authHeader = request.headers.authorization;
+export default function ensureAuthenticated(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void{
+  // validação do token JWT
+  // pegando o Header com o token gerado
+  const authHeader = req.headers.authorization;
 
-  if (!authHeader) {
+  if(!authHeader) {
     throw new AppError('JWT token is missing', 401);
   }
 
-  const [, token] = authHeader.split(' ');
+  // dividindo o token - [Bearer, "token"]
+  const [, token ] = authHeader.split(' ');
 
+  // '' = secret(md5)
   try {
     const decoded = verify(token, authConfig.jwt.secret);
 
+    // forçando o decoded a reconhecer a tipagem da variável
     const { sub } = decoded as ITokenPayload;
 
-    request.user = {
+    req.user = {
       id: sub,
     };
 

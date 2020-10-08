@@ -5,8 +5,8 @@ import { classToClass } from 'class-transformer';
 import ListProvidersService from '@modules/appointments/services/ListProvidersService';
 
 export default class ProvidersController {
-  public async index(request: Request, response: Response): Promise<Response> {
-    const user_id = request.user.id;
+  public async index(req: Request, res: Response): Promise<Response> {
+    const user_id = req.user.id;
 
     const listProviders = container.resolve(ListProvidersService);
 
@@ -14,6 +14,6 @@ export default class ProvidersController {
       user_id,
     });
 
-    return response.json(classToClass(providers));
+    return res.json(classToClass(providers));
   }
 }

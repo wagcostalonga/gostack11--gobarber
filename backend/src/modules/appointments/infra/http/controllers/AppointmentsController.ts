@@ -4,10 +4,14 @@ import { container } from 'tsyringe';
 import CreateAppointmentService from '@modules/appointments/services/CreateAppointmentService';
 
 export default class AppointmentsController {
-  public async create(request: Request, response: Response): Promise<Response> {
-    const user_id = request.user.id;
-    const { provider_id, date } = request.body;
+  public async create(req: Request, res: Response): Promise<Response> {
+    const user_id = req.user.id;
+    const { provider_id, date } = req.body;
 
+    // container.resolve -> carregar o service,
+    // verificar no constructor se ele necessita de qualquer dependência,
+    // irá no container ver se há essa dependência cadastrada e
+    // por fim retorna a instância
     const createAppointment = container.resolve(CreateAppointmentService);
 
     const appointment = await createAppointment.execute({
@@ -16,6 +20,6 @@ export default class AppointmentsController {
       user_id,
     });
 
-    return response.json(appointment);
+    return res.json(appointment);
   }
 }

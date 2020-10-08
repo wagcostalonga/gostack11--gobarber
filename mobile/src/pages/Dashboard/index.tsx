@@ -1,10 +1,19 @@
 import React from 'react';
-import { View } from 'react-native';
 
-// import { Container } from './styles';
+import { Container, Header, HeaderTitle, UserName } from './styles';
 
 const Dashboard: React.FC = () => {
-  return <View />;
+  return (
+    <Container>
+      <Header>
+        <HeaderTitle>
+          Bem-vindo,
+          {'\n'}
+          <UserName>Wagner Costalonga</UserName>
+        </HeaderTitle>
+      </Header>
+    </Container>
+  );
 };
 
 export default Dashboard;

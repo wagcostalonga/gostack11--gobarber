@@ -5,10 +5,12 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
-  JoinColumn,
+  JoinColumn
 } from 'typeorm';
 
 import User from '@modules/users/infra/typeorm/entities/User';
+
+// Ao setar o Entity acima da classe nós dizemos que classe é uma propriedade desse Entity
 
 @Entity('appointments')
 class Appointment {
@@ -19,17 +21,17 @@ class Appointment {
   provider_id: string;
 
   @ManyToOne(() => User)
-  @JoinColumn({ name: 'provider_id' })
+  @JoinColumn({ name: 'provider_id'})
   provider: User;
 
   @Column()
   user_id: string;
 
   @ManyToOne(() => User)
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'user_id'})
   user: User;
 
-  @Column('timestamp with time zone')
+  @Column('time with time zone')
   date: Date;
 
   @CreateDateColumn()

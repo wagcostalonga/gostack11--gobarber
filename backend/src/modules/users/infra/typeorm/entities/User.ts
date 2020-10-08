@@ -3,12 +3,13 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn,
+  UpdateDateColumn
 } from 'typeorm';
-
 import { Exclude, Expose } from 'class-transformer';
 
 import uploadConfig from '@config/upload';
+
+// Ao setar o Entity acima da classe nós dizemos que classe é uma propriedade desse Entity
 
 @Entity('users')
 class User {
@@ -36,7 +37,7 @@ class User {
 
   @Expose({ name: 'avatar_url' })
   getAvatarUrl(): string | null {
-    if (!this.avatar) {
+    if(!this.avatar) {
       return null;
     }
 

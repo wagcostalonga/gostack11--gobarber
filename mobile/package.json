@@ -24,8 +24,9 @@
     "react-native-reanimated": "^1.8.0",
     "react-native-safe-area-context": "^1.0.0",
     "react-native-screens": "^2.7.0",
-    "react-native-vector-icons": "^6.6.0",
+    "react-native-vector-icons": "^7.1.0",
     "styled-components": "^5.1.0",
+    "yarn": "^1.22.10",
     "yup": "^0.29.0"
   },
   "devDependencies": {

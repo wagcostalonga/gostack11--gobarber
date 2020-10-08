@@ -5,6 +5,7 @@ build/
 tmp/*
 !tmp/.gitkeep
 temp/
+
+_notes
 .env
 ormconfig.json
-testes_automatizados

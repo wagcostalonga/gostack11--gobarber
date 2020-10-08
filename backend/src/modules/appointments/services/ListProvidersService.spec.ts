@@ -1,42 +1,44 @@
-import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
-
-import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
+import FakeUsersRepository from '@modules/users/repositories/fakes/FakesUsersRepository';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProviders';
 import ListProvidersService from './ListProvidersService';
 
-let fakeUserRepository: FakeUsersRepository;
-let listProviders: ListProvidersService;
+let fakeUsersRepository: FakeUsersRepository;
 let fakeCacheProvider: FakeCacheProvider;
+let listProviders: ListProvidersService;
 
-describe('ShowProfile', () => {
+describe('ListProviders', () => {
   beforeEach(() => {
-    fakeUserRepository = new FakeUsersRepository();
+    fakeUsersRepository = new FakeUsersRepository();
     fakeCacheProvider = new FakeCacheProvider();
 
     listProviders = new ListProvidersService(
-      fakeUserRepository,
+      fakeUsersRepository,
       fakeCacheProvider,
-    );
+      );
   });
+
   it('should be able to list the providers', async () => {
-    const user1 = await fakeUserRepository.create({
+    const user1 = await fakeUsersRepository.create({
       name: 'John Doe',
-      email: 'john@doe.com',
+      email: 'johndoe@example.com',
       password: '123456',
     });
 
-    const user2 = await fakeUserRepository.create({
+    const user2 = await fakeUsersRepository.create({
       name: 'John Trê',
-      email: 'john@tre.com',
+      email: 'johntre@example.com',
       password: '123456',
     });
 
-    const loggedUser = await fakeUserRepository.create({
-      name: 'John Quar',
-      email: 'john@quart.com',
+    const loggedUser = await fakeUsersRepository.create({
+      name: 'John Qua',
+      email: 'johnqua@example.com',
       password: '123456',
     });
 
-    const providers = await listProviders.execute({ user_id: loggedUser.id });
+    const providers = await listProviders.execute({
+      user_id: loggedUser.id,
+    });
 
     expect(providers).toEqual([user1, user2]);
   });
